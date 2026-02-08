@@ -6,7 +6,7 @@ function App() {
   const [note, setnote] = useState([])
 
    function fetchget(){
-    axios.get('http://localhost:3000/apis/notes').then((res)=>{
+    axios.get('https://notesapp-m6x6.onrender.com/apis/notes').then((res)=>{
       // console.log(res.data.note); 
       const note = res.data.note
       setnote(note)    
@@ -20,7 +20,7 @@ function App() {
  function fetchpost(e){
  const {title,discription} = e.target.elements;
   e.preventDefault()
-  axios.post('http://localhost:3000/apis/notes',{
+  axios.post('https://notesapp-m6x6.onrender.com/apis/notes',{
     title:title.value,
     discription:discription.value
   }).then((res)=>{
@@ -35,7 +35,7 @@ function App() {
   function fetchdelete(id){
     console.log(id);
     
-    axios.delete('http://localhost:3000/apis/notes/' + id).then(res=>{
+    axios.delete('https://notesapp-m6x6.onrender.com/apis/notes/' + id).then(res=>{
       console.log(res);    
       fetchget() 
     })
@@ -44,7 +44,7 @@ function App() {
 
   function fetchpatch(id){
   const discription = prompt('enter your update')
-  axios.patch('http://localhost:3000/apis/notes/'+ id,{
+  axios.patch('https://notesapp-m6x6.onrender.com/apis/notes/'+ id,{
     discription:discription
   }).then(res=>{
     console.log(res);
