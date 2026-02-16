@@ -1,7 +1,7 @@
 const app=require('./src/app')
 const mongoose =require('mongoose')
 function connecttodb(){
-     mongoose.connect('mongodb+srv://harsh:IHYB4UbYaD7iSu2C@cluster1.renvn6a.mongodb.net/day-7').then(()=>{
+     mongoose.connect('mongodb+srv://harsh:IHYiSu2C@cluster1.mongodb.net/day-7').then(()=>{
         console.log('connected');
         
      })
