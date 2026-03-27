@@ -1,0 +1,94 @@
+.feed{
+    display: flex;
+      .left{
+        width: 20%;
+        position: fixed;
+        background: #ab9696;
+        height: 100vh;
+      }
+    .right{
+        width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .posts{
+        background: #1D1C1C;
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        .post{
+            background: #2c2a2a;
+            display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    
+        .top-post{
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-inline: 0.3rem;
+            padding-block: 0.5rem;
+            .img-wrap{
+                  width: 60px;
+                    height: 60px;
+                    background: #000;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    border-radius: 50%;
+                    border: 2px solid transparent;
+                    background: conic-gradient(red,rgb(135, 16, 195),rgb(200, 128, 11),red) border-box ;
+                img{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: center;
+               
+                }
+            }
+            font-size: 1rem;
+            font-style: oblique;
+            font-weight: 200;
+        }
+
+        img{
+            width: 400px;
+            height: 500px;
+        }
+
+        .bottom-post{
+            padding-inline: 0.3rem;
+            padding-block: 0.5rem;
+            .icons{
+               
+                display: flex;
+                gap: 18rem;
+                .left-buttons{
+                    display: flex;
+                    gap: 0.6rem;
+                    
+                }
+                button{
+                     background: transparent;
+                border: none;
+                outline: none;
+                width: 20px;
+                height: 20px;
+                color: white;
+                .like{
+                        color: red;
+                        
+                    }
+                }
+            }
+            h5{
+                font-weight: 100;
+                color: white;
+            }
+        }
+        }
+
+    }
+}
+}

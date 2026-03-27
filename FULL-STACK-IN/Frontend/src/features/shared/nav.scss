@@ -1,0 +1,28 @@
+.nav{
+    display: flex;
+    gap: 13rem;
+    padding: 1rem;
+    h1{
+    background: linear-gradient(rgb(218, 42, 71),orange,rgb(228, 50, 142),red);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    -webkit-background-clip: text;
+    background-clip: text;  
+    -webkit-text-fill-color: transparent;
+}
+button{
+    background: #df349b;
+    border-radius: 0.3rem;
+    border: none;
+    outline: none;
+    font-size: 0.8rem;
+    color: rgb(237, 227, 234);
+    font-weight: 900;
+    padding: 0.5rem;
+    transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    &:active{
+        scale: 0.95;
+    }
+}
+}

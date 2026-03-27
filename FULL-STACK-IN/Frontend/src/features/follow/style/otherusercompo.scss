@@ -1,0 +1,35 @@
+.otherusercompo{
+      margin-top: 0.3rem;
+      display: flex;
+      gap: 2.6rem;
+      align-items: center;
+          .user-part{
+              img{
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+            }
+            font-size: 0.7rem;
+            color: aliceblue;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 100;
+          }
+          button{
+            background: #DF349B;
+            color: white;
+            width: 50px;
+            height: 20px;
+            border: none;
+            outline: none;
+            border-radius: 3px;
+            transition: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+            cursor: pointer;
+             user-select: none;
+            &:active{
+                scale: 0.95;
+            }
+          }
+
+}
