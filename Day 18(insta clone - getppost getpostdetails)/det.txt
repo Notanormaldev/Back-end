@@ -1,0 +1,6 @@
+get details of post of user only users post not everyones like view your proflie in insta and see your posts 
+get api/posts/
+
+
+get details of the post threw post id ,also check who post it or not you only see your post 
+get api/posts/details/
