@@ -1,6 +1,7 @@
 const Usermodel = require("../model/auth.model")
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const blacklistmodel = require("../model/blacklist")
 
 
 async function register(req,res){
@@ -32,7 +33,7 @@ async function register(req,res){
         username:user.username
     },process.env.JWT ,{expiresIn:'1d'})
 
-    res.cookies('token',token)
+    res.cookie('token',token)
 
     return res.status(200).json({
         msg:"user register",
@@ -71,7 +72,7 @@ async function login(req,res){
     username:user.username
    },process.env.JWT,{expiresIn:"1d"})
 
-   res.cookies('token',token)
+   res.cookie('token',token)
 
    return res.status(200).json({
     msg:"Login sucessfully",
@@ -79,10 +80,26 @@ async function login(req,res){
    })
 }
 async function getme(req,res){
+   const userid = req.user.id
 
+   const user = await Usermodel.findById(userid)
+
+   return res.status(200).json({
+    user
+   })
 }
 async function logout(req,res){
-    
+  const token = req.cookies.token
+
+  res.clearCookie('token')
+
+  await blacklistmodel.create({
+    token
+  })
+
+  return res.status(200).json({
+    msg:"logout sucessfully"
+  })
 }
 module.exports = {
     register,login,getme,logout
