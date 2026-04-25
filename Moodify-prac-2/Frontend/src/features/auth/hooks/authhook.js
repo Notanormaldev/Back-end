@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { Authcontext } from "../auth.context"
 import { getme, login, register ,logout } from "../services/api.auth"
+import { useEffect } from "react"
 
 
 
@@ -32,10 +33,14 @@ export const authhook=()=>{
        }
    }
    async function handlegetme(){
-    setloading(true)
-    const data = await getme()
-    setuser(data.user)
-    setloading(false)
+   try {
+        setloading(true)
+        const data=await getme()
+        setuser(data.user)
+        setloading(false)
+        } catch (error) {
+            setloading(false)
+        }
    }
    async function handlelogout(){
     setloading(true)
@@ -44,6 +49,10 @@ export const authhook=()=>{
     setloading(false)
    }
   
+
+   useEffect(()=>{
+        handlegetme()
+   },[])
 
    return(
     {handlegetme,handlelogin,handleregister,handlelogout,user,loading}
