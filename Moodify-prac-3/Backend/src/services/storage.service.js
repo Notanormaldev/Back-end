@@ -3,7 +3,7 @@ const { toFile } = require('@imagekit/nodejs')
 const Imagekit = require('@imagekit/nodejs').default
 
 const client = new Imagekit({
-    privatekey=process.env.IMAGEKIT_PRIVATE_KEY
+    privatekey:process.env.IMAGEKIT_PRIVATE_KEY
 })
 
 async function uploadfile({buffer,filename,folder=''}){
@@ -14,5 +14,4 @@ async function uploadfile({buffer,filename,folder=''}){
     })
     return file
 }
-
-export default uploadfile
+module.exports=uploadfile
