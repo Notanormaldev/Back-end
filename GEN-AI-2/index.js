@@ -18,7 +18,10 @@ const message = []
 while(true){
     const userInput =await rl.question('you:')
 
-    const res = await model.invoke(userInput)
+    message.push(new HumanMessage(userInput))
+
+    const res = await model.invoke(message)
+    message.push(res)
     console.log("AI:"+ res.content);
 
 }
