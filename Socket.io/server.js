@@ -14,7 +14,7 @@ io.on('connection',(socket)=>{
   
   socket.on('msg',(ms)=>{
     console.log(ms);
-    console.log('mseggggggg');
+    console.log('msg');
     socket.emit('msg',ms)
     io.emit('abc')
     
