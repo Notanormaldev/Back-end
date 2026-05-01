@@ -13,10 +13,10 @@ const rl = readline.createInterface({
 });
 
 
-// rl.question("what is your name:",(name)=>{
-//     console.log(`hello ${name}!`);
-//     rl.close()
-// })
+rl.question("what is your name:",(name)=>{
+    console.log(`hello ${name}!`);
+    rl.close()
+})
 
 
 
