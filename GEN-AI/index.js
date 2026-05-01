@@ -4,11 +4,8 @@ import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 
 const model = new ChatGoogleGenerativeAI({
   model: "gemini-2.5-flash-lite",
-  apiKey: "your-api-key"
+  apiKey: process.env.GEMINI_API
 });
-
-
-
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -16,13 +13,13 @@ const rl = readline.createInterface({
 });
 
 
+// rl.question("what is your name:",(name)=>{
+//     console.log(`hello ${name}!`);
+//     rl.close()
+// })
 
-``
 
 
+const res= await model.invoke("hello")
 
-
-rl.question("what is your name:",(name)=>{
-    console.log(`hello ${name}!`);
-    rl.close()
-})
+console.log(res.text);
