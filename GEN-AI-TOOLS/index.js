@@ -5,7 +5,7 @@ import { createAgent, HumanMessage } from 'langchain';
 import * as z from "zod"
 import { tool } from "langchain"
 import { sendEmail } from './mail.service.js';
-
+import { TavilySearch } from "@langchain/tavily";
 
 
 const emailtool = tool(
@@ -21,8 +21,9 @@ const emailtool = tool(
       })
    }
 )
-
-
+const searchTool = new TavilySearch({
+   maxResults: 3
+})
 
 
 const model = new ChatGoogleGenerativeAI({
@@ -31,7 +32,7 @@ const model = new ChatGoogleGenerativeAI({
 });
 const agnent = new createAgent({
    model,
-   tools:[emailtool]
+   tools:[emailtool,searchTool]
 })
 
 
