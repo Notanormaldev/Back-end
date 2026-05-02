@@ -1,55 +1,38 @@
 import 'dotenv/config'
 import readline from 'readline/promises'
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
-import { HumanMessage } from 'langchain';
-import nodemailer from 'nodemailer';
+import { createAgent, HumanMessage } from 'langchain';
 import * as z from "zod"
 import { tool } from "langchain"
-
-
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    type: 'OAuth2',
-    user: process.env.EMAIL_USER,
-    clientId: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    refreshToken: process.env.REFRESH_TOKEN,
-  },
-});
+import { sendEmail } from './mail.service.js';
 
 
 
-transporter.verify((error, success) => {
-  if (error) {
-    console.error('Error connecting to email server:', error);
-  } else {
-    console.log('Email server is ready to send messages');
-  }
-});
-
-async function sendEmail({to,html,subject,text=''}){
-   const emailoption={
-      from:process.env.USER,
-      to,
-      subject,
-      html,
-      text
+const emailtool = tool(
+   sendEmail,
+   {
+      name:'emailtool',
+      description:"use for the sending email",
+      schema:z.object({
+            to:z.string().describe('to email address'),
+            subject:z.string().describe('email subject'),
+            html:z.string().describe('html content of the email'),
+            text:z.string().describe('text content of the email').optional()
+      })
    }
+)
 
-   const dts = await model.sendmail(emailoption)
-   console.log("Send email",dts);
 
-   return ("email sent sucesfully to:"+ to)
-   
-
-}
 
 
 const model = new ChatGoogleGenerativeAI({
   model: "gemini-2.5-flash-lite",
   apiKey:process.env.GEMINI_API
 });
+const agnent = new createAgent({
+   model,
+   tools:[emailtool]
+})
 
 
 
@@ -71,10 +54,14 @@ while(true){
 
    msg.push(new HumanMessage(userinput))
 
-   const res =await model.invoke(msg)
-   msg.push(res)
+   const res =await agnent.invoke(
+    {
+      messages:msg
+    }
+   )
+   msg.push(res.messages[res.messages.length-1].content)
    
-   console.log("AI:",res.content);
+   console.log("AI:",res);
   
 }
 
