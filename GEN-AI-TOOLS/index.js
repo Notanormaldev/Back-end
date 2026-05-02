@@ -24,12 +24,12 @@ const msg=[];
 
 while(true){
 
-//    const userinput = await rl.question("YOU:")
+   const userinput = await rl.question("YOU:")
 
-//    msg.push(new HumanMessage(userinput))
+   msg.push(new HumanMessage(userinput))
 
-   const res =await model.invoke("who is you??")
-//    msg.push(res)
+   const res =await model.invoke(msg)
+   msg.push(res)
    
    console.log("AI:",res.content);
   
