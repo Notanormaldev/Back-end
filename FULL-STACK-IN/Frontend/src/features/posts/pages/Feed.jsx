@@ -14,6 +14,9 @@ function Feed() {
             handlefeed()
    },[])
 
+
+
+
    if(loading || !feed){
     return (<main>
         <h1>Feed is loading...</h1>

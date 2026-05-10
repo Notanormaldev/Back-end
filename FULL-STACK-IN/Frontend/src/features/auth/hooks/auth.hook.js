@@ -13,6 +13,7 @@ export const useAuth=()=>{
         try {
             const res = await register(username,email,password)
             setuser(res.user)
+            localStorage.setItem("token", res.token)
 
           return 'register'
         } catch (error) {
@@ -28,6 +29,7 @@ export const useAuth=()=>{
         try {
             const res = await login(username,password)
             setuser(res.user)
+            localStorage.setItem("token", res.token)
 
             return "login"
         } catch (error) {
@@ -38,7 +40,12 @@ export const useAuth=()=>{
         
     }
 
+    function handlelogout(){
+        setuser(null)
+        localStorage.removeItem("token")
+    }
+
     return(
-        {user,loading,handleregister,handlelogin}
+        {user,loading,handleregister,handlelogin,handlelogout}
     )
 }
