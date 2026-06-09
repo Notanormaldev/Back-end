@@ -1,6 +1,10 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const app = express();
 
 
@@ -27,6 +31,10 @@ app.get('/api/users', (req, res) => {
     res.json(users);
 }); 
 
+  app.use(express.static(path.join(__dirname, 'public')))
+  app.get('*name', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'))
+  })
 
 
 
