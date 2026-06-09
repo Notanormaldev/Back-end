@@ -43,7 +43,29 @@ CMD ["node", "server.js"]
 
 ---
 
-### Step 3 — Build & Run
+### Step 3 — Setup `server.js`
+
+Add this in your `server.js` to serve the React build:
+
+```js
+import path from 'path';
+import { fileURLToPath } from 'url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+```
+
+Then add these lines after all your API routes:
+
+```js
+app.use(express.static(path.join(__dirname, 'public')))
+app.get('*name', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
+})
+```
+
+---
+
+### Step 4 — Build & Run
 
 ```bash
 # Build image
