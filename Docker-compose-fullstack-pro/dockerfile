@@ -1,14 +1,14 @@
 #stage 1-frontend
-FROM node:20-alpine as frontend-build
+FROM node:20-alpine AS frontend-build
 
 
 WORKDIR /app
 
-COPY package*.json /app
+COPY ./Frontend/package*.json /app
 
 RUN npm install
 
-COPY . /app
+COPY ./Frontend  /app
 RUN npm run build
 
 #stage 2-fullstack
@@ -17,9 +17,9 @@ RUN npm run build
 FROM node:20-alpine
 
 WORKDIR /app
-COPY package*.json /app
+COPY ./Backend/package*.json /app
 RUN npm install
-COPY . /app
+COPY ./Backend /app
 
 COPY --from=frontend-build /app/dist /app/public
 EXPOSE 3000
