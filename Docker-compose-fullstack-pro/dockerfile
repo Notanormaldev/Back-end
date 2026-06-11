@@ -17,8 +17,11 @@ RUN npm run build
 FROM node:20-alpine
 
 WORKDIR /app
+
 COPY ./Backend/package*.json /app
+
 RUN npm install
+
 COPY ./Backend /app
 
 COPY --from=frontend-build /app/dist /app/public
