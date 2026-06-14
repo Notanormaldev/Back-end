@@ -1,16 +1,16 @@
 {
   "dependencies": {
     "express": "^5.2.1",
+    "express-validator": "^7.3.2",
     "morgan": "^1.11.0"
   },
   "name": "notification",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev":"npx nodemon server.js"
+    "dev": "npx nodemon server.js"
   },
   "keywords": [],
   "author": "",
