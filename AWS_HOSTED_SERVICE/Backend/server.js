@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 app.get('/api/users', (req, res) => {
     const users = [
         { id: 1, name: 'John Doe' },
-        { id: 2, name: 'Jane Doe' },
+        { id: 2, name: 'Jane Doeu' },
         { id: 3, name: 'Alice' },
         { id: 4, name: 'Bob' },
     ]
