@@ -16,3 +16,10 @@ spec:
             name: main-server-service
             port: 
               number: 80
+      - pathType: Prefix
+        path: "/products"
+        backend:
+          service:
+            name: product-deployment-service
+            port: 
+              number: 80
