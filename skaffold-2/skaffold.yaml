@@ -1,0 +1,51 @@
+apiVersion: skaffold/v4beta13
+kind: Config
+metadata:
+  name: skaffold-2
+
+# ── Build ──────────────────────────────────────────
+build:
+  local:
+    push: false        # use local images, don't push to registry
+  artifacts:
+    - image: core
+      context: core      # build context = ./core folder
+      docker:
+        dockerfile: dockerfile.dev
+      sync:
+        manual:             # paths are relative to ./core context
+          - src: '**/*.js'     # NOT 'core/**/*.js' ← that would fail
+            dest: /app
+          - src: '**/*.json'
+            dest: /app
+
+    - image: notification
+      context: notification
+      docker:
+        dockerfile: dockerfile.dev
+      sync:
+        manual:
+          - src: '**/*.js'
+            dest: /app
+          - src: '**/*.json'
+            dest: /app
+
+# ── Manifests ──────────────────────────────────────
+manifests:
+  rawYaml:
+    - k8s/core-deployment.yml
+    - k8s/notification-deployment.yml
+    - k8s/core-service.yml
+    - k8s/notification-service.yml
+    - k8s/ingress.yml
+
+# ── Port Forwarding ────────────────────────────────
+portForward:
+  - resourceType: service
+    resourceName: core-service
+    port: 80
+    localPort: 3000
+  - resourceType: service
+    resourceName: notification-service
+    port: 80
+    localPort: 8080
