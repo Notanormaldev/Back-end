@@ -1,0 +1,15 @@
+FROM node:20-alpine
+
+WORKDIR /sync-agent
+
+# paths relative to repo root (skaffold context: .)
+COPY sandbox-agents/sync-agent/package*.json ./
+RUN npm install
+
+COPY sandbox-agents/sync-agent/seed.js .
+COPY sandbox-agents/sync-agent/watch.js .
+
+# bake template files in for new sandbox seeding
+COPY template /template
+
+CMD ["node", "watch.js"]

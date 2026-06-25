@@ -1,0 +1,20 @@
+FROM node:20-alpine
+
+WORKDIR /agent
+
+COPY package*.json ./
+
+# linux-headers needed for node-pty-prebuilt-multiarch native build
+RUN apk add --no-cache \
+    python3 \
+    make \
+    g++ \
+    linux-headers
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]

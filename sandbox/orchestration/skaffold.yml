@@ -1,0 +1,44 @@
+apiVersion: skaffold/v4beta13
+kind: Config
+
+metadata:
+  name: capstone
+
+build:
+  artifacts:
+  - image: sandbox
+    context: sandbox
+    docker:
+      dockerfile: dockerfile  
+    sync:
+      manual:
+        - src: 'src/**/*.js'
+          dest: .
+        - src: 'src/**/*.json'
+          dest: .
+        - src: 'server.js'
+          dest: .
+
+  - image: sandbox-agent
+    context: sandbox-agents/comm-agent
+    docker:
+      dockerfile: dockerfile
+
+# NOTE: build context is repo root so dockerfile can COPY ../template
+  - image: sandbox-sync
+    context: .
+    docker:
+      dockerfile: sandbox-agents/sync-agent/dockerfile
+
+
+  - image: template
+    context: template/
+    docker:
+      dockerfile: dockerfile
+
+manifests:
+  rawYaml:
+    - k8s/sandbox-deployment.yml
+    - k8s/sandbox-service.yml
+    - k8s/ingress.yml 
+    - k8s/rbac.yaml

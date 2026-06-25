@@ -1,0 +1,13 @@
+{
+  "name": "sync-agent",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "seed": "node seed.js",
+    "watch": "node watch.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1045.0",
+    "chokidar": "^5.0.0"
+  }
+}
