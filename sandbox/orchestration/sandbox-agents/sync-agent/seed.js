@@ -82,7 +82,7 @@ const seedFromTemplate = async () => {
 };
 
 const installDependencies = async () => {
-    console.log('installing dependencies in /app...');
+    console.log('installing dependencies in /workspace...');
     const { stdout, stderr } = await execAsync('npm install', { cwd: WATCH_DIR });
     if (stdout) console.log(stdout);
     if (stderr) console.error(stderr);
@@ -100,7 +100,7 @@ const main = async () => {
 
     await installDependencies(); // awaited inside async main
 
-    console.log('seed complete — /app is ready');
+    console.log('seed complete — /workspace is ready');
 };
 
 main().catch((err) => {

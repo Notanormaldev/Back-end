@@ -23,7 +23,7 @@ export const createPod = async (sandboxId, s3Bucket) => {
                     image: "sandbox-sync:latest",
                     imagePullPolicy: "IfNotPresent",
                     command: [ "node", "seed.js" ],   // separate script, just seeds and exits
-                    volumeMounts: [ { name: "code-volume", mountPath: "/app" } ],
+                    volumeMounts: [ { name: "code-volume", mountPath: "/workspace" } ],
                     env: [
                         { name: "SANDBOX_ID", value: sandboxId },
                         { name: "S3_BUCKET", value: s3Bucket },

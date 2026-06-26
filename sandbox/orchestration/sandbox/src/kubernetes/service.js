@@ -25,7 +25,7 @@ export const createService = async (sandboxId) => {
                     targetPort: 5173,
                 }
             ],
-            type: "NodePort",
+            type: "ClusterIP",
         }
     };
 

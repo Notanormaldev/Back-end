@@ -1,2 +1,43 @@
-node_modules
+# Dependencies
+node_modules/
+.npm
+
+# Environment variables — NEVER commit these
 .env
+.env.*
+.env.local
+.env.*.local
+*.env
+
+# AWS credentials
+.aws/
+aws-credentials.json
+aws-credentials.yml
+
+# Kubernetes secrets / local overrides
+*-secret.yml
+*-secret.yaml
+secrets.yml
+secrets.yaml
+kubeconfig
+*.kubeconfig
+
+# Local dev overrides (keep template, ignore personal overrides)
+k8s/local-*.yml
+k8s/local-*.yaml
+
+# Build outputs
+dist/
+build/
+.cache/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Skaffold local cache
+.skaffold/
