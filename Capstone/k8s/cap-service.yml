@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name:  cap-service
+spec:
+  selector:
+    app:  cap-deployment
+  type:  ClusterIP
+  ports:
+  - name:  cap-service
+    port:  80
+    targetPort:  3000

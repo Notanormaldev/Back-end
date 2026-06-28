@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  cap-deployment
+  labels:
+    name:  cap-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cap-deployment
+  template:
+    metadata:
+      labels:
+        app: cap-deployment
+    spec:
+      containers:
+      - image:  cap:latest
+        name:  cap-deployment
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: "20m"
+            memory: "55M"
+          limits:
+           cpu: "50m"
+           memory: "128Mi"
+        livenessProbe:
+          httpGet:
+            path: /api/sandbox/health
+            port: 3000
+          initialDelaySeconds: 90
+          timeoutSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /api/sandbox/health
+            port: 3000
+          initialDelaySeconds: 30
+          timeoutSeconds: 10      
+        ports:
+        - containerPort:  3000
+          name:  cap-deployment
