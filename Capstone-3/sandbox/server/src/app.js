@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(morgan('dev'))
 
 
-app.use("/api/sandox/health",(req,res)=>{
+app.use("/api/sandbox/health",(req,res)=>{
     return res.status(200).json({
         message:"Sandbox is healthy",
         success:true,
