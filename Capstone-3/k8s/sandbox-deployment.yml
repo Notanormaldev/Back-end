@@ -14,6 +14,7 @@ spec:
       labels:
         name:  sandbox-deployment
     spec:
+      serviceAccountName: resource-manager
       containers:
       - image:  sandbox1:latest
         imagePullPolicy: Always
