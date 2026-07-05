@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  router-deployment
+  labels:
+    name:  router-deployment
+spec:
+  replicas: 1
+  selector:
+     matchLabels:
+        name:  router-deployment
+  template:
+    metadata:
+      labels:
+        name:  router-deployment
+    spec:
+      containers:
+      - image:  router1:latest
+        imagePullPolicy: Always
+        name:  router-deployment
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "64Mi"
+          limits:
+            cpu: "100m"
+            memory: "256Mi"
+        livenessProbe:
+          httpGet:
+            path: /api/router/health
+            port: 3000
+          initialDelaySeconds: 90
+          timeoutSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /api/router/health
+            port: 3000
+          initialDelaySeconds: 30
+          timeoutSeconds: 10   
+        ports:
+        - containerPort:  3000
+          name:  router-port
