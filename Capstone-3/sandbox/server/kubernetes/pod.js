@@ -14,6 +14,22 @@ const podmanifest={
         }
     },
     spec:{
+        volumes:[{
+            name:"workspace-volume",
+            emptyDir:{}
+          }],
+            initContainers:[
+            {
+                name:"init-container",
+                image:"template1:latest",
+                imagePullPolicy:"Always",
+                command:['sh','-c','cp -r /workspace/. /seed/'],
+                volumeMounts:[{
+                    name:"workspace-volume",
+                    mountPath:"/seed"
+                }]
+            }
+         ],
         containers:[{
                 image:"template1:latest",
                 imagePullPolicy:"Always",
@@ -28,10 +44,31 @@ const podmanifest={
                         memory:"512Mi",
                         cpu:"500m"
                     }
-                },
+                },volumeMounts:[{
+                    name:"workspace-volume",
+                    mountPath:"/workspace"
+                }]
 
             },{
-                
+                image:"agent1:latest",
+                imagePullPolicy:"Always",
+                name:"agent-container",
+                ports:[{containerPort:3000,name:"http"}],
+                resources:{
+                    requests:{
+                        memory:"256Mi",
+                        cpu:"250m"
+                    },
+                    limits:{
+                        memory:"512Mi",
+                        cpu:"500m"
+                    }
+                },
+                 volumeMounts:[{
+                    name:"workspace-volume",
+                    mountPath:"/workspace"
+                }]
+
             }]
     }
 }

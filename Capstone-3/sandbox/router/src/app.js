@@ -3,8 +3,6 @@ import { createProxyMiddleware } from "http-proxy-middleware";
 import morgan from "morgan";
 
 const app=express();
-app.use(express.json());
-app.use(express.urlencoded({extended:true}))
 
 app.use(morgan("dev"))
 app.get("/api/router/health",(req,res)=>{
@@ -25,6 +23,25 @@ function getproxy(sandboxid){
     return proxies[sandboxid]
 }
 
+
+const agentproxies={}
+function getagentproxy(sandboxid){
+       const target = `http://sandbox-service-${sandboxid}:3000`;
+
+        if(!agentproxies[sandboxid]){
+        agentproxies[sandboxid] = createProxyMiddleware({
+            target,
+            changeOrigin: true,
+            ws: true,
+        });
+    }
+    
+    return agentproxies[sandboxid];
+   
+}
+
+
+
 app.use((req, res, next) => {
     const host = req.headers.host
 
@@ -32,7 +49,7 @@ app.use((req, res, next) => {
 
 
     if(host.split('.')[1]=="agent"){
-        // return getagentproxy(sandboxid)(req,res,next);
+         return getagentproxy(sandboxid)(req,res,next);
     }else{
 
         return getproxy(sandboxid)(req,res,next);
