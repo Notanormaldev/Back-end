@@ -36,7 +36,7 @@ const podmanifest={
 
     const res= await k8sCoreV1Api.createNamespacedPod({
         namespace:"default",
-        body:podManifest
+        body:podmanifest
     })
 
     return res
