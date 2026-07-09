@@ -1,6 +1,6 @@
 import express from "express"
 import morgan from "morgan"
-import agentrouter from "./routes/agents.route.js"
+import agentrouter from "./routes/agents.routes.js"
 
 const app=express()
 app.use(express.json())

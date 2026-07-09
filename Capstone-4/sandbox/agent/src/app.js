@@ -1,9 +1,11 @@
 import express from "express"
 import morgan from "morgan"
 import fs from "fs";
+import path from "path";
 
 const app = express()
 
+app.use(express.json())
 app.use(morgan("dev"))
 
 

@@ -1,24 +1,22 @@
-import dotenv from "dotenv"
-dotenv.config()
 import { ChatMistralAI } from "@langchain/mistralai"
-import { listfiles, createFile, updatefile, readfile } from "./tool.js"
-import { createAgent } from "langchain"
+import { createReactAgent } from "@langchain/langgraph/prebuilt"
+import { createTools } from "./tool.js"
 import { INKZ_SYSTEM_PROMPT } from "./prompt.js"
 
 
 const model = new ChatMistralAI({
-    model: "mistral-medium-latest",
+    model: "mistral-small-latest",
     apiKey: process.env.MISTRAL_API_KEY
 })
 
 
-const agent = (createAgent({
-    model,
-    tools: [listfiles, createFile, updatefile, readfile],
-    systemPrompt: INKZ_SYSTEM_PROMPT
-})).withConfig({
-    recursionLimit: 200
-})
+// Returns a new agent instance bound to a specific sandboxId
+export function createAgent(sandboxId) {
+    const { listfiles, readfile, updatefile, createFile } = createTools(sandboxId)
 
-
-export default agent
+    return createReactAgent({
+        llm: model,
+        tools: [listfiles, readfile, updatefile, createFile],
+        stateModifier: INKZ_SYSTEM_PROMPT
+    })
+}

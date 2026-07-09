@@ -17,8 +17,8 @@ spec:
         app: ai-deployment
     spec:
       containers:
-      - image:  ai-orchestration1
-        imagePullPolicy: Always
+      - image: ai-orchestration1
+        imagePullPolicy: IfNotPresent
         name:  ai-orchestration
         resources:
           requests:
