@@ -1,4 +1,4 @@
-import { V1Volume } from "@kubernetes/client-node";
+
 import { k8sCoreV1Api } from "./config.js";
 
 
@@ -8,7 +8,7 @@ export async function createpod(sandboxid){
         apiVersion:'v1',
         kind:'Pod',
         metadata:{
-            name:`sandbox-pod-${sandbox}`,
+            name:`sandbox-pod-${sandboxid}`,
             labels:{
                 app:`sandbox`,
                 sandboxid:sandboxid
