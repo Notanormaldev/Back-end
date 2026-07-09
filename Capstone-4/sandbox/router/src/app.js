@@ -1,0 +1,55 @@
+import express from "express"
+import morgan from "morgan"
+
+
+const app = express()
+
+app.use(morgan("dev"))
+ 
+
+app.get('/api/router/health',(req,res)=>{
+    res.send({
+   message:"Router is healthy"
+    })
+})
+
+
+const proxies={}
+
+function getproxy(sandboxid){
+
+    const target = `http://sandbox-service-${sandboxid}:80`;
+   
+    if(!proxies[sandboxid]){
+        proxies[sandboxid] = createProxyMiddleware({
+            target,
+            changeOrigin: true,
+            ws: true,
+        });
+    }
+    
+    return proxies[sandboxid];
+}
+
+
+
+
+
+app.use((req, res, next) => {
+    const host = req.headers.host
+
+    const sandboxid = host.split('.')[0]
+
+
+    if(host.split('.')[1]=="agent"){
+        
+    }else{
+
+        return getproxy(sandboxid)(req,res,next);
+    }
+
+})
+
+
+
+export default app
