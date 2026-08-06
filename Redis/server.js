@@ -41,7 +41,13 @@ app.use(express.json())
 app.use(morgan('dev'))
 
 
-
+app.get('/',(req,res)=>{
+    let sum=0;
+    for(let i=0;i<=100000000;i++){
+        sum+=i;
+    }
+    res.json({result:+sum})
+})
 app.get("/user/:id", async (req, res) => {
     try {
         const usercachesdata = await redis.get(`user:${req.params.id}`)
