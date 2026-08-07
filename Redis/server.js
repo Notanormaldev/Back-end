@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import morgan from "morgan";
 import Usermodel from "./model/user.model.js";
 import express from 'express'
-
+import rateLimit from 'express-rate-limit';
 
 
 // -- Mongoose
@@ -39,6 +39,26 @@ redis.once("error", (err) => {
 const app = express();
 app.use(express.json())
 app.use(morgan('dev'))
+
+const globalLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000,  // 1 minutes
+  max: 100,                    // 100 requests per window per IP
+  message: {
+    error: 'Too many requests. Please try again later.'
+  },
+  statusCode: 429,
+  standardHeaders: true,   // sends RateLimit-* headers
+//   legacyHeaders: false,
+});
+
+
+
+app.use(globalLimiter);
+
+
+
+
+
 
 
 app.get('/',(req,res)=>{
