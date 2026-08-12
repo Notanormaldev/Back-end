@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     password:{
         type:String
     },
-    refreshtoken:{
+    refershtoken:{
         type:String
     }
 },{
