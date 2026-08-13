@@ -1,5 +1,7 @@
 import {useEffect } from 'react'
 import { axiosinsta } from './config/axiosinsta.jsx';
+
+
 function App() {
   let getdata=async ()=>{
       try {
@@ -9,6 +11,8 @@ function App() {
         console.log(error);
       }
 }
+
+
 useEffect(()=>{
     getdata()
 },[])

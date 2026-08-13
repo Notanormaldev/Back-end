@@ -67,14 +67,17 @@ async function logincontroller(req,res){
 
 
 async function getaccesstokencontro(req,res){
- let refershtoken = req.cookies.refershtoken
+
+let refershtoken = req.cookies.refershtoken
+
 if(!refershtoken){
   return res.status(404).json({
     msg:"no found refersh token"
   })
 }
- let accesstoken = await getaccesstokenservice(refershtoken)
 
+
+ let accesstoken = await getaccesstokenservice(refershtoken)
 
   res.cookie('accesstoken',accesstoken,{
     httpOnly:true,

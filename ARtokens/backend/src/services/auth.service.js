@@ -8,13 +8,13 @@ async function registerservice(data){
        let {name,email,password}=data
        if(!email || !password){
            throw new Error("Fill all details")
-       }
+       }                          
 
        const isExisted = await usermodel.findOne({ email })
        if(isExisted){
            throw new Error("User already exists with this email address")
-       }
-  
+       }                                                                                
+                       
   const hashpass = bcrypt.hashSync(password,10)
 
 
@@ -62,20 +62,17 @@ async function loginservice(data){
 }   
 
 async function getaccesstokenservice(refershtoken){
+          
     let decoded = jwt.verify(refershtoken,process.env.JWT_REFERSH_TOKEN)
+
     if(!decoded) throw error("unauthorized")
     const user = await usermodel.findById(decoded.id)
    
-
     if(refershtoken !== user.refershtoken) throw error("unauthorized")
 
-   let accesstoken = genaccesstoken(user._id)
+    let accesstoken = genaccesstoken(user._id)
 
    return accesstoken
-
-
-    
-
 }
 
 export {
