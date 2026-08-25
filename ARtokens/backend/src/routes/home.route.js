@@ -1,7 +1,6 @@
 import express from 'express'
 import authmiddleware from '../middleware/auth.middleware.js'
 
-
 const homeroute = express.Router()
 
 homeroute.get('/check',authmiddleware,(req,res)=>{

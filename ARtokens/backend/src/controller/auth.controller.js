@@ -1,14 +1,12 @@
 import usermodel from "../models/user.model.js"
 import { getaccesstokenservice, loginservice, registerservice } from "../services/auth.service.js"
 
-
 async function registercontroller(req,res){
   
   let {newuser,accesstoken,refershtoken} = await registerservice(req.body)
 
   newuser.refershtoken = refershtoken
   await newuser.save()
-  
 
   res.cookie('accesstoken',accesstoken,{
     httpOnly:true,
@@ -17,8 +15,7 @@ async function registercontroller(req,res){
     maxAge:10*60*1000 
   })
 
-
-    res.cookie('refershtoken',refershtoken,{
+  res.cookie('refershtoken',refershtoken,{
     httpOnly:true,
     sameSite:'lax',
     secure:false,
@@ -32,11 +29,9 @@ async function registercontroller(req,res){
   )
 }
 
-
 async function logincontroller(req,res){
    
   let {isExisted,accesstoken,refershtoken} = await loginservice(req.body)
-
 
 
   isExisted.refershtoken = refershtoken
@@ -65,7 +60,6 @@ async function logincontroller(req,res){
   )
 }
 
-
 async function getaccesstokencontro(req,res){
 
 let refershtoken = req.cookies.refershtoken
@@ -76,7 +70,6 @@ if(!refershtoken){
   })
 }
 
-
  let accesstoken = await getaccesstokenservice(refershtoken)
 
   res.cookie('accesstoken',accesstoken,{
@@ -86,13 +79,12 @@ if(!refershtoken){
     maxAge:10*60*1000 
   })
 
-
  return res.status(200).json({
   msg:'access token genrated'
  })
 
-
 }
+
 
 export  {
     registercontroller,logincontroller,getaccesstokencontro

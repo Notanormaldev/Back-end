@@ -2,11 +2,6 @@ import jwt from 'jsonwebtoken'
 import usermodel from '../models/user.model.js'
 
 
-
-
-
-
-
 async function authmiddleware(req,res,next){
     try {
         let accesstoken = req.cookies.accesstoken
@@ -17,8 +12,6 @@ async function authmiddleware(req,res,next){
             })
         }
        let decoded =jwt.verify(accesstoken,process.env.JWT_ACCESS_TOKEN)
-
-
 
        if(!decoded){
         return res.status(401).json({

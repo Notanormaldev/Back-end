@@ -15,7 +15,7 @@ async function registerservice(data){
            throw new Error("User already exists with this email address")
        }                                                                                
                        
-  const hashpass = bcrypt.hashSync(password,10)
+ const hashpass = bcrypt.hashSync(password,10)
 
 
 const newuser = await usermodel.create({

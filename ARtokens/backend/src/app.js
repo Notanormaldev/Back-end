@@ -13,4 +13,4 @@ app.use(cors({
 }))
 app.use("/api/auth", authrotue)
 app.use('/api/home', homeroute)
-export default app;
+export default app;                  
