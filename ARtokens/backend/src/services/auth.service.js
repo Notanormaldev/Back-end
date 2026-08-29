@@ -4,34 +4,28 @@ import {genaccesstoken,genrefershtoken } from "../utils/generateToken.js"
 import jwt from 'jsonwebtoken'
 
 async function registerservice(data){
-    try {      
-       let {name,email,password}=data
-       if(!email || !password){
-           throw new Error("Fill all details")
-       }                          
+    let name = data.name || data.fullName
+    let { email, password } = data
+    if(!email || !password || !name){
+        throw new Error("Fill all details")
+    }                          
 
-       const isExisted = await usermodel.findOne({ email })
-       if(isExisted){
-           throw new Error("User already exists with this email address")
-       }                                                                                
-                       
- const hashpass = bcrypt.hashSync(password,10)
+    const isExisted = await usermodel.findOne({ email })
+    if(isExisted){
+        throw new Error("User already exists with this email address")
+    }                                                                                
+                    
+    const hashpass = bcrypt.hashSync(password,10)
 
+    const newuser = await usermodel.create({
+        name,
+        email,
+        password:hashpass
+    })
 
-const newuser = await usermodel.create({
-    name,
-    email,
-    password:hashpass
-  })
-
-  let accesstoken = genaccesstoken(newuser._id)
-  let refershtoken = genrefershtoken(newuser._id)
-   return {newuser,accesstoken,refershtoken}
-
-
-    } catch (error) {
-        console.log(error);   
-    }
+    let accesstoken = genaccesstoken(newuser._id)
+    let refershtoken = genrefershtoken(newuser._id)
+    return {newuser,accesstoken,refershtoken}
 }
 
 async function loginservice(data){
@@ -56,19 +50,17 @@ async function loginservice(data){
    let accesstoken = genaccesstoken(isExisted._id)
    let refershtoken = genrefershtoken(isExisted._id)
 
-
-
   return {isExisted,accesstoken,refershtoken}
 }   
 
 async function getaccesstokenservice(refershtoken){
-          
     let decoded = jwt.verify(refershtoken,process.env.JWT_REFERSH_TOKEN)
 
-    if(!decoded) throw error("unauthorized")
+    if(!decoded) throw new Error("unauthorized")
     const user = await usermodel.findById(decoded.id)
-   
-    if(refershtoken !== user.refershtoken) throw error("unauthorized")
+    if(!user) throw new Error("user not found")
+
+    if(refershtoken !== user.refershtoken) throw new Error("unauthorized token mismatch")
 
     let accesstoken = genaccesstoken(user._id)
 

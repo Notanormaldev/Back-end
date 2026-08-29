@@ -1,27 +1,15 @@
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router'
+import { useAuth } from '../hooks/authhook.js'
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const navigate = useNavigate()
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors, isSubmitting },
-  } = useForm({
-    mode: 'onTouched',
-  })
+  let { register, handleSubmit, watch, errors, apiError, onRegister, isSubmitting } = useAuth()
 
-  const password = watch('password')
-
-  const onSubmit = (data) => {
-    console.log('Register Form Submitted:', data)
-    // Example: navigate('/') or perform user registration API call
-  }
+ 
 
   return (
     <div className="w-full max-w-md bg-slate-900/90 backdrop-blur-md p-8 rounded-2xl shadow-2xl border border-slate-800">
@@ -30,7 +18,12 @@ function Register() {
         <p className="text-slate-400 text-sm mt-2">Join us today to get started</p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
+      <form onSubmit={handleSubmit(onRegister)} className="space-y-4" noValidate>
+        {apiError && (
+          <div className="p-3 bg-red-500/10 border border-red-500/50 rounded-xl text-red-400 text-xs font-medium text-center">
+            ⚠️ {apiError}
+          </div>
+        )}
         {/* Full Name */}
         <div>
           <label className="block text-sm font-medium text-slate-300 mb-1.5" htmlFor="fullName">
@@ -144,7 +137,7 @@ function Register() {
               }`}
               {...register('confirmPassword', {
                 required: 'Please confirm your password',
-                validate: (value) => value === password || 'Passwords do not match',
+                validate: (value) => value === watch('password') || 'Passwords do not match',
               })}
             />
             <button

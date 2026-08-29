@@ -1,23 +1,12 @@
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router'
+import { useAuth } from '../hooks/authhook.js'
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm({
-    mode: 'onTouched',
-  })
-
-  const onSubmit = (data) => {
-    console.log('Login Form Submitted:', data)
-    // Example: navigate('/home') or perform authentication call
-  }
+  let { register, handleSubmit, errors, apiError, onLogin, isSubmitting } = useAuth()
 
   return (
     <div className="w-full max-w-md bg-slate-900/90 backdrop-blur-md p-8 rounded-2xl shadow-2xl border border-slate-800">
@@ -26,7 +15,12 @@ function Login() {
         <p className="text-slate-400 text-sm mt-2">Sign in to your account to continue</p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
+      <form onSubmit={handleSubmit(onLogin)} className="space-y-5" noValidate>
+        {apiError && (
+          <div className="p-3 bg-red-500/10 border border-red-500/50 rounded-xl text-red-400 text-xs font-medium text-center">
+            ⚠️ {apiError}
+          </div>
+        )}
         {/* Email Field */}
         <div>
           <label className="block text-sm font-medium text-slate-300 mb-1.5" htmlFor="email">
