@@ -1,7 +1,5 @@
-
+import Navbar from "@/components/Navbar.js";
 import "./globals.css";
-
-
 
 export const metadata = {
   title: "Create Next App",
@@ -14,7 +12,12 @@ export default function RootLayout({ children }) {
       lang="en"
       className={` h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <div>
+        <Navbar/>
+          {children}
+          </div>
+          </body>
     </html>
   );
 }
