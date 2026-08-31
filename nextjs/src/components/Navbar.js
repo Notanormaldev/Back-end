@@ -3,9 +3,9 @@ import Link from 'next/link'
 function Navbar() {
   return (
     <div className='flex gap-3'>
-        <Link href="/home">home</Link>
-        <Link href="/about">about</Link>
-        <Link href="/contact">contact</Link>
+        <Link href="/mainlayout/home">home</Link>
+        <Link href="/mainlayout/about">about</Link>
+        <Link href="/mainlayout/contact">contact</Link>
     </div>
   )
 }
