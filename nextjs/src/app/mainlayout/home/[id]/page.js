@@ -3,7 +3,6 @@ import React from 'react'
 
 async function page({params}) {
    const {id}= await params;
-   console.log(id);
   return (
     <div>home id page - {id}</div>
   )
