@@ -1,13 +1,24 @@
-import React from 'react'
+'use client'
 
-async function page() {
-    let res = await fetch("https://fakestoreapi.com/products")
-    let data = await res.json()
+import React, { useState } from 'react'
+
+ function page() {
+    
+
+   const [products, setproducts] = useState([])
+
+
+   async function data(){
+      let res = await fetch("https://fakestoreapi.com/products")
+      let data = await res.json()
+      setproducts(data)
+   }
+    data()
   return (
     <div> all products lists 
         <div>
-         {data.map((e) => (
-            <h1 >{e.title}</h1>
+         {products.map((e) => (
+            <h1 onClick={()=>{}}>{e.title}</h1>
          ))}
         </div>
     </div>
