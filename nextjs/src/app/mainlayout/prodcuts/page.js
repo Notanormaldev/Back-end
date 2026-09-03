@@ -15,7 +15,7 @@ import React, { useState } from 'react'
    }
     data()
   return (
-    <div> all products lists 
+    <div> All products lists 
         <div>
          {products.map((e) => (
             <h1 onClick={()=>{}}>{e.title}</h1>
