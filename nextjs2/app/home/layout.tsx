@@ -1,17 +1,14 @@
-import React from 'react'
+import React from "react";
 
-function layout({children}) {
-  
+export default function HomeLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html
-      lang="en"
-      className={` h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
-    </html>
+    <div className="home-layout">
+      {/* Agar koi common header/sidebar/wrapper chahiye home pages ke liye toh yahan add kar sakte hain */}
+      {children}
+    </div>
   );
 }
-
-
-
-export default layout
