@@ -13,14 +13,14 @@ export default function RootLayout({ children }) {
       className={` h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Nav/>
+       
         <div className="p-10">
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
-          >
+          >  <Nav/>
             {children}
           </ThemeProvider>
           </div></body>
