@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
+import { ModeToggle } from './toggletheme'
 
 function Nav() {
   return (
@@ -10,6 +11,7 @@ function Nav() {
             <Link href="/product">Products</Link>
  
         </ul>
+        <ModeToggle/>
     </div>
   )
 }
