@@ -9,7 +9,8 @@ function Nav() {
         <ul className='flex gap-20'>
             <Link href="/home">Home</Link>
             <Link href="/product">Products</Link>
- 
+            <Link href="/login">Login</Link>
+            <Link href="/register">Register</Link>
         </ul>
         <ModeToggle/>
     </div>
