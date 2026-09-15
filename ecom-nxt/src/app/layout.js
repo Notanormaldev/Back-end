@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import { ThemeProvider } from "@/components/themeprovider";
+import { Authprovider } from "@/context/aurhcontext";
 
 
 
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col">
        
         <div className="p-10">
+          <Authprovider>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -22,7 +24,7 @@ export default function RootLayout({ children }) {
             disableTransitionOnChange
           >  <Nav/>
             {children}
-          </ThemeProvider>
+          </ThemeProvider></Authprovider>
           </div></body>
     </html>
   );
