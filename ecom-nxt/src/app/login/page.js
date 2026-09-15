@@ -16,9 +16,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Lock, Mail, Eye, EyeOff, Loader2, LogIn } from "lucide-react";
+import { useAuth } from "@/context/aurhcontext";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { hydrateuser, setuser } = useAuth() || {};
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -55,6 +57,10 @@ export default function LoginPage() {
       }
       if (response.data?.user) {
         localStorage.setItem("user", JSON.stringify(response.data.user));
+        if (setuser) setuser(response.data.user);
+      }
+      if (hydrateuser) {
+        hydrateuser();
       }
 
       setTimeout(() => {
