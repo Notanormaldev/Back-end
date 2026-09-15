@@ -1,6 +1,7 @@
-const { useAuth } = require("@/context/aurhcontext")
-const { useRouter } = require("next/navigation")
-const { useEffect } = require("react")
+"use client"
+import { useAuth } from "@/context/aurhcontext"
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 
 
 
