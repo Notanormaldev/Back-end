@@ -10,14 +10,14 @@ const Protected = ({ children }) => {
 
   useEffect(() => {
     if (!loading && !user) {
-      router.replace("/login")
+      router.push("/login")
     }
   }, [user, loading, router])
 
   if (loading) {
     return (
       <div className="flex h-64 items-center justify-center">
-        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />hello
       </div>
     )
   }

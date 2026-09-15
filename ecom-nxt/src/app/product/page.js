@@ -1,3 +1,4 @@
+
 import Protected from '../../components/Protected.js';
 import ProductCard from '../../components/ProductCard.js';
 import React from 'react'
