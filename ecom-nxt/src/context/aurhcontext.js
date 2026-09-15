@@ -11,6 +11,13 @@ let Authprovider = ({ children }) => {
     const [loading, setLoading] = useState(true)
 
     let hydrateuser = async () => {
+        // If user explicitly logged out, do not restore session until they log in again
+        if (typeof window !== "undefined" && localStorage.getItem("isLoggedOut") === "true") {
+            setuser(null)
+            setLoading(false)
+            return
+        }
+
         try {
             let res = await api.get("/api/auth/me")
             setuser(res.data?.user || res.data)
@@ -25,12 +32,14 @@ let Authprovider = ({ children }) => {
         try {
             await api.post("/api/auth/logout")
         } catch (error) {
-            console.error("Logout API error:", error)
+            // Backend might not have a logout endpoint, handled gracefully
         } finally {
             setuser(null)
             if (typeof window !== "undefined") {
+                localStorage.setItem("isLoggedOut", "true")
                 localStorage.removeItem("token")
                 localStorage.removeItem("user")
+                document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
             }
             router.push("/login")
         }

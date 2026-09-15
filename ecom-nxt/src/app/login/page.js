@@ -58,6 +58,10 @@ export default function LoginPage() {
 
             setSuccess(response.data?.message || "Login successful! Redirecting...");
 
+            if (typeof window !== "undefined") {
+                localStorage.removeItem("isLoggedOut");
+            }
+
             if (response.data?.token) {
                 localStorage.setItem("token", response.data.token);
             }
