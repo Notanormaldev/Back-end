@@ -2,7 +2,7 @@ import React from 'react'
 
 function page() {
   return (
-    <div>page product </div>
+    <div>page  product </div>
   )
 }
 
